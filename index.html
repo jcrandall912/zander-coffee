@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tin Tie Coffee Roasters — Small Batch Magic</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --espresso: #2C1A0E;
+      --dark-roast: #3E2723;
+      --medium-roast: #5D4037;
+      --latte: #D7CCC8;
+      --cream: #EFEBE9;
+      --caramel: #C68B59;
+      --gold: #D4A855;
+      --magic-gold: #F0C75E;
+      --warm-white: #FFF8F0;
+      --text-dark: #2C1A0E;
+      --text-medium: #5D4037;
+      --text-light: #8D6E63;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      color: var(--text-dark);
+      background: var(--warm-white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 { font-family: 'Playfair Display', Georgia, serif; }
+    .handwritten { font-family: 'Caveat', cursive; }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Sparkle Particles (canvas behind content) ── */
+    #sparkle-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Navigation ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(44, 26, 14, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 0 2rem;
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 20px rgba(44, 26, 14, 0.3); }
+
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .nav-logo img {
+      height: 42px;
+      width: auto;
+      filter: invert(1);
+    }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--latte);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--magic-gold); }
+
+    .mobile-toggle { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; }
+    .mobile-toggle span { display: block; width: 22px; height: 2px; background: var(--cream); margin: 5px 0; transition: 0.3s; }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6rem 2rem 4rem;
+      background: linear-gradient(180deg, var(--espresso) 0%, var(--dark-roast) 60%, var(--warm-white) 100%);
+      overflow: hidden;
+    }
+
+    /* Floating coffee beans animation */
+    .floating-beans {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .bean {
+      position: absolute;
+      font-size: 1.5rem;
+      opacity: 0.15;
+      animation: floatBean linear infinite;
+    }
+
+    @keyframes floatBean {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.15; }
+      90% { opacity: 0.15; }
+      100% { transform: translateY(-10vh) rotate(720deg); opacity: 0; }
+    }
+
+    .hero-content {
+      max-width: 700px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-logo {
+      width: 220px;
+      margin: 0 auto 1.5rem;
+      filter: invert(1);
+      animation: logoFloat 4s ease-in-out infinite;
+    }
+
+    @keyframes logoFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--caramel), var(--magic-gold));
+      color: var(--espresso);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.4rem 1.2rem;
+      border-radius: 50px;
+      margin-bottom: 1.5rem;
+      animation: shimmer 3s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0%, 100% { box-shadow: 0 0 10px rgba(240, 199, 94, 0.3); }
+      50% { box-shadow: 0 0 25px rgba(240, 199, 94, 0.6); }
+    }
+
+    .hero h1 {
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      line-height: 1.1;
+      color: var(--cream);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--magic-gold);
+      position: relative;
+    }
+
+    /* Sparkle after the magic word */
+    .hero h1 em::after {
+      content: '\2728';
+      position: absolute;
+      top: -0.3em;
+      right: -0.6em;
+      font-size: 0.4em;
+      animation: twinkle 2s ease-in-out infinite;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.4; transform: scale(0.8) rotate(0deg); }
+      50% { opacity: 1; transform: scale(1.2) rotate(20deg); }
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--latte);
+      max-width: 500px;
+      margin: 0 auto 2rem;
+      font-weight: 300;
+    }
+
+    .hero-cta {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--caramel), var(--magic-gold));
+      color: var(--espresso);
+      padding: 0.9rem 2.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(240, 199, 94, 0.3);
+    }
+
+    .hero-cta:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(240, 199, 94, 0.5);
+    }
+
+    /* Animated steam */
+    .steam-container {
+      position: absolute;
+      bottom: 30%;
+      left: 50%;
+      transform: translateX(-50%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .steam {
+      position: absolute;
+      width: 4px;
+      background: rgba(255, 248, 240, 0.08);
+      border-radius: 50%;
+      animation: rise linear infinite;
+    }
+
+    @keyframes rise {
+      0% { opacity: 0; transform: translateY(0) scaleX(1); }
+      30% { opacity: 0.4; }
+      70% { opacity: 0.2; transform: translateY(-100px) scaleX(3); }
+      100% { opacity: 0; transform: translateY(-180px) scaleX(5); }
+    }
+
+    /* ── Section Styling ── */
+    section { padding: 5rem 2rem; position: relative; z-index: 1; }
+
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--caramel);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .section-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-light);
+      max-width: 550px;
+      font-weight: 300;
+    }
+
+    /* ── Story Section ── */
+    .story { background: var(--warm-white); }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      margin-top: 3rem;
+    }
+
+    .story-image {
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 8px 40px rgba(44, 26, 14, 0.15);
+    }
+
+    .story-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.5s;
+    }
+
+    .story-image:hover img { transform: scale(1.03); }
+
+    /* Whimsical glow ring around photo */
+    .story-image::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, var(--caramel), var(--magic-gold), var(--caramel));
+      z-index: -1;
+      animation: glowRing 4s ease-in-out infinite;
+    }
+
+    @keyframes glowRing {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 0.8; }
+    }
+
+    .story-text h3 {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+    }
+
+    .story-text p {
+      color: var(--text-medium);
+      margin-bottom: 1rem;
+      font-weight: 300;
+    }
+
+    .story-text .signature {
+      font-family: 'Caveat', cursive;
+      font-size: 1.8rem;
+      color: var(--caramel);
+      margin-top: 1.5rem;
+    }
+
+    .fun-fact {
+      background: linear-gradient(135deg, rgba(198, 139, 89, 0.1), rgba(240, 199, 94, 0.1));
+      border-left: 3px solid var(--magic-gold);
+      padding: 1rem 1.25rem;
+      border-radius: 0 12px 12px 0;
+      margin-top: 1.5rem;
+    }
+
+    .fun-fact p {
+      font-size: 0.85rem;
+      color: var(--text-medium);
+      margin: 0;
+      font-weight: 400;
+    }
+
+    .fun-fact .handwritten {
+      color: var(--caramel);
+      font-size: 1rem;
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    /* ── Products (Magical) ── */
+    .products {
+      background: var(--cream);
+      position: relative;
+    }
+
+    .products::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 100px;
+      background: linear-gradient(180deg, var(--warm-white), var(--cream));
+      pointer-events: none;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .product-card {
+      background: var(--warm-white);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(44, 26, 14, 0.08);
+      transition: transform 0.4s, box-shadow 0.4s;
+      position: relative;
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px) rotate(-0.5deg);
+      box-shadow: 0 16px 50px rgba(44, 26, 14, 0.18), 0 0 30px rgba(240, 199, 94, 0.1);
+    }
+
+    .product-image {
+      background: linear-gradient(135deg, var(--espresso), var(--dark-roast));
+      height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-image .bag-icon {
+      font-size: 5rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Magic swirl inside product image */
+    .product-image::after {
+      content: '';
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(from 0deg, transparent 0%, rgba(198, 139, 89, 0.1) 25%, transparent 50%, rgba(240, 199, 94, 0.08) 75%, transparent 100%);
+      animation: swirl 8s linear infinite;
+    }
+
+    @keyframes swirl { 100% { transform: rotate(360deg); } }
+
+    .product-tag {
+      position: absolute;
+      top: 1rem; left: 1rem;
+      background: linear-gradient(135deg, var(--caramel), var(--magic-gold));
+      color: var(--espresso);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.8rem;
+      border-radius: 50px;
+      z-index: 3;
+    }
+
+    .product-info { padding: 1.5rem; }
+
+    .product-info h3 { font-size: 1.4rem; margin-bottom: 0.35rem; }
+
+    .product-meta { font-size: 0.8rem; color: var(--text-light); margin-bottom: 0.75rem; }
+
+    .product-description {
+      font-size: 0.9rem;
+      color: var(--text-medium);
+      margin-bottom: 1.25rem;
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    .tasting-notes { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
+
+    .tasting-note {
+      background: linear-gradient(135deg, var(--cream), rgba(240, 199, 94, 0.15));
+      color: var(--text-medium);
+      font-size: 0.7rem;
+      font-weight: 500;
+      padding: 0.3rem 0.7rem;
+      border-radius: 50px;
+      letter-spacing: 0.03em;
+    }
+
+    .product-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .product-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--espresso);
+    }
+
+    .product-price small {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: var(--text-light);
+    }
+
+    .buy-btn {
+      background: var(--espresso);
+      color: var(--cream);
+      border: none;
+      padding: 0.75rem 1.8rem;
+      border-radius: 50px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .buy-btn:hover {
+      background: linear-gradient(135deg, var(--caramel), var(--magic-gold));
+      color: var(--espresso);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 15px rgba(240, 199, 94, 0.4);
+    }
+
+    .buy-btn:disabled { opacity: 0.6; cursor: wait; }
+
+    /* ── Magic Process Section ── */
+    .process { background: var(--warm-white); }
+
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .process-step {
+      text-align: center;
+      padding: 2rem 1.5rem;
+      border-radius: 16px;
+      background: rgba(239, 235, 233, 0.5);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .process-step:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(44, 26, 14, 0.08);
+    }
+
+    .step-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      display: block;
+      animation: bobble 3s ease-in-out infinite;
+    }
+
+    .process-step:nth-child(2) .step-icon { animation-delay: 0.5s; }
+    .process-step:nth-child(3) .step-icon { animation-delay: 1s; }
+
+    @keyframes bobble {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--caramel), var(--magic-gold));
+      color: var(--espresso);
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .process-step h3 { font-size: 1.15rem; margin-bottom: 0.5rem; }
+    .process-step p { font-size: 0.9rem; color: var(--text-light); font-weight: 300; }
+
+    /* ── Testimonial / Fun Banner ── */
+    .magic-banner {
+      background: linear-gradient(135deg, var(--espresso), var(--dark-roast));
+      padding: 4rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .magic-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 50%, rgba(240, 199, 94, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 50%, rgba(198, 139, 89, 0.08) 0%, transparent 50%);
+    }
+
+    .magic-banner blockquote {
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .magic-banner blockquote p {
+      font-family: 'Caveat', cursive;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      color: var(--cream);
+      line-height: 1.4;
+      margin-bottom: 1rem;
+    }
+
+    .magic-banner blockquote cite {
+      font-family: 'Inter', sans-serif;
+      font-style: normal;
+      font-size: 0.85rem;
+      color: var(--caramel);
+      font-weight: 500;
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--espresso);
+      color: var(--latte);
+      padding: 3rem 2rem;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-inner { max-width: 1100px; margin: 0 auto; }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-logo img {
+      height: 50px;
+      filter: invert(1);
+    }
+
+    .footer-tagline {
+      font-family: 'Caveat', cursive;
+      font-size: 1.1rem;
+      color: var(--caramel);
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+
+    .footer-links a {
+      color: var(--latte);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--magic-gold); }
+
+    .footer-copy { font-size: 0.75rem; color: var(--text-light); opacity: 0.6; }
+
+    /* ── Toast notification ── */
+    .toast {
+      position: fixed;
+      bottom: 2rem; right: 2rem;
+      background: var(--espresso);
+      color: var(--cream);
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+      transform: translateY(120%);
+      transition: transform 0.3s ease;
+      z-index: 200;
+    }
+    .toast.show { transform: translateY(0); }
+
+    /* ── Scroll reveal animations ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Mobile Responsive ── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .mobile-toggle { display: block; }
+
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 64px;
+        left: 0; right: 0;
+        background: rgba(44, 26, 14, 0.98);
+        padding: 1.5rem 2rem;
+        gap: 1rem;
+      }
+
+      .story-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .product-grid { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr; gap: 1rem; }
+      .hero { min-height: 90vh; padding-top: 5rem; }
+      .hero-logo { width: 140px; }
+      section { padding: 3.5rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Sparkle Canvas ── -->
+  <canvas id="sparkle-canvas"></canvas>
+
+  <!-- ── Navigation ── -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <img src="logo.png" alt="Tin Tie Coffee Roasters">
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#story">Our Story</a></li>
+        <li><a href="#coffee">Coffee</a></li>
+        <li><a href="#how-it-works">How It Works</a></li>
+      </ul>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ── Hero ── -->
+  <section class="hero" id="home">
+    <!-- Floating coffee beans -->
+    <div class="floating-beans" id="floatingBeans"></div>
+
+    <!-- Steam wisps -->
+    <div class="steam-container" id="steamContainer"></div>
+
+    <div class="hero-content">
+      <img src="logo.png" alt="Tin Tie Coffee Roasters" class="hero-logo">
+      <div class="hero-badge">Small Batch &#x2022; Hand Roasted &#x2022; A Little Magic</div>
+      <h1>Every cup is a<br><em>tiny adventure</em></h1>
+      <p>Roasted in small batches by a 12-year-old entrepreneur who believes great coffee should be fresh, fun, and made with a whole lot of heart.</p>
+      <a href="#coffee" class="hero-cta">Discover the Magic</a>
+    </div>
+  </section>
+
+  <!-- ── Story ── -->
+  <section class="story" id="story">
+    <div class="section-inner">
+      <div class="section-label">Our Story</div>
+      <h2 class="section-title">Meet the roaster</h2>
+      <p class="section-subtitle">It started with curiosity, a bag of green beans, and a whole lot of wondering "what if?"</p>
+
+      <div class="story-grid">
+        <div class="story-image reveal">
+          <img src="zander.jpg" alt="Zander, founder of Tin Tie Coffee Roasters">
+        </div>
+        <div class="story-text reveal">
+          <h3>From kitchen experiments to your morning cup</h3>
+          <p>Hi, I'm Zander! I'm 12 years old and I'm kind of obsessed with coffee. The smell of fresh beans, the science behind the perfect roast, the way one good cup can totally make someone's morning — I love all of it.</p>
+          <p>Tin Tie Coffee Roasters is my way of sharing that love. Every single bag is roasted by hand in small batches, so you know it's crazy fresh. I pick the beans, dial in the roast, and seal every bag myself.</p>
+          <p>The name? It comes from those little tin ties that keep coffee bags sealed tight. Simple, reliable, and gets the job done — just like my coffee.</p>
+          <div class="signature">— Zander</div>
+
+          <div class="fun-fact">
+            <span class="handwritten">Fun fact!</span>
+            <p>Zander has roasted over 100 batches of coffee and can tell you the difference between beans from three continents — just by smell.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Products ── -->
+  <section class="products" id="coffee">
+    <div class="section-inner">
+      <div class="section-label">The Coffee</div>
+      <h2 class="section-title">What's brewing</h2>
+      <p class="section-subtitle">Two roasts. No filler. Just honest, fresh-roasted magic in a bag.</p>
+
+      <div class="product-grid">
+        <!-- Product 1 -->
+        <div class="product-card reveal">
+          <div class="product-image">
+            <span class="bag-icon">&#9749;</span>
+            <div class="product-tag">Popular</div>
+          </div>
+          <div class="product-info">
+            <h3>Morning Kickstart</h3>
+            <div class="product-meta">Medium Roast &#x2022; 12 oz bag &#x2022; Whole Bean</div>
+            <p class="product-description">A smooth, balanced medium roast that's perfect for your everyday cup. Bright enough to wake you up, smooth enough to keep you coming back for more.</p>
+            <div class="tasting-notes">
+              <span class="tasting-note">Chocolate</span>
+              <span class="tasting-note">Brown Sugar</span>
+              <span class="tasting-note">Toasted Almond</span>
+            </div>
+            <div class="product-footer">
+              <div class="product-price">$15 <small>/ bag</small></div>
+              <button class="buy-btn" onclick="handleCheckout('morning-kickstart')">Buy Now</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product-card reveal">
+          <div class="product-image">
+            <span class="bag-icon">&#9749;</span>
+            <div class="product-tag">Bold</div>
+          </div>
+          <div class="product-info">
+            <h3>Night Owl</h3>
+            <div class="product-meta">Dark Roast &#x2022; 12 oz bag &#x2022; Whole Bean</div>
+            <p class="product-description">A rich, full-bodied dark roast for anyone who likes their coffee with some serious muscle. Bold flavor, low bitterness, and a velvety smooth finish.</p>
+            <div class="tasting-notes">
+              <span class="tasting-note">Dark Chocolate</span>
+              <span class="tasting-note">Smoky Caramel</span>
+              <span class="tasting-note">Molasses</span>
+            </div>
+            <div class="product-footer">
+              <div class="product-price">$15 <small>/ bag</small></div>
+              <button class="buy-btn" onclick="handleCheckout('night-owl')">Buy Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Magic Banner ── -->
+  <section class="magic-banner">
+    <blockquote>
+      <p>"I just think coffee is one of those things that can make an ordinary morning feel a little bit magical."</p>
+      <cite>— Zander, age 12, coffee roaster</cite>
+    </blockquote>
+  </section>
+
+  <!-- ── How It Works ── -->
+  <section class="process" id="how-it-works">
+    <div class="section-inner">
+      <div class="section-label">How It Works</div>
+      <h2 class="section-title">From our roaster to your door</h2>
+      <p class="section-subtitle">Three simple steps to fresh coffee magic.</p>
+
+      <div class="process-steps">
+        <div class="process-step reveal">
+          <span class="step-icon">&#127861;</span>
+          <div class="step-number">1</div>
+          <h3>Pick your roast</h3>
+          <p>Choose between our smooth medium roast or our bold dark roast. Both come in 12 oz whole bean bags, ready for adventure.</p>
+        </div>
+        <div class="process-step reveal">
+          <span class="step-icon">&#128293;</span>
+          <div class="step-number">2</div>
+          <h3>We roast it fresh</h3>
+          <p>Your beans are roasted to order in small batches. No sitting on a shelf for months — this is the real deal, roasted with care.</p>
+        </div>
+        <div class="process-step reveal">
+          <span class="step-icon">&#10024;</span>
+          <div class="step-number">3</div>
+          <h3>Magic arrives</h3>
+          <p>Sealed in a tin-tie bag and shipped right to your doorstep. Tear it open, take a deep breath, and let the magic begin.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <img src="logo.png" alt="Tin Tie Coffee Roasters">
+      </div>
+      <p class="footer-tagline">Small batch magic, roasted by Zander in Brunswick, GA</p>
+      <ul class="footer-links">
+        <li><a href="#story">Our Story</a></li>
+        <li><a href="#coffee">Coffee</a></li>
+        <li><a href="#how-it-works">How It Works</a></li>
+      </ul>
+      <p class="footer-copy">&copy; 2026 Tin Tie Coffee Roasters. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- ── Toast ── -->
+  <div class="toast" id="toast"></div>
+
+  <!-- ── Stripe.js ── -->
+  <script src="https://js.stripe.com/v3/"></script>
+
+  <script>
+    // ════════════════════════════════════════════
+    // STRIPE CONFIGURATION
+    // ════════════════════════════════════════════
+    //
+    // To get payments working:
+    //
+    // 1. Create a Stripe account at https://stripe.com
+    // 2. Go to Stripe Dashboard -> Payment Links
+    // 3. Create a link for each product ($15 each)
+    // 4. Paste the URLs into the PRODUCTS object below
+    //
+    // ════════════════════════════════════════════
+
+    const STRIPE_PUBLISHABLE_KEY = 'pk_test_REPLACE_WITH_YOUR_KEY';
+
+    const PRODUCTS = {
+      'morning-kickstart': {
+        name: 'Morning Kickstart — Medium Roast',
+        paymentLink: 'https://buy.stripe.com/YOUR_PAYMENT_LINK_HERE',
+        priceId: 'price_REPLACE_WITH_YOUR_PRICE_ID',
+      },
+      'night-owl': {
+        name: 'Night Owl — Dark Roast',
+        paymentLink: 'https://buy.stripe.com/YOUR_PAYMENT_LINK_HERE',
+        priceId: 'price_REPLACE_WITH_YOUR_PRICE_ID',
+      }
+    };
+
+    function handleCheckout(productKey) {
+      const product = PRODUCTS[productKey];
+      if (!product) return;
+
+      if (product.paymentLink && !product.paymentLink.includes('YOUR_PAYMENT_LINK_HERE')) {
+        window.location.href = product.paymentLink;
+        return;
+      }
+
+      showToast('Payment coming soon! Check back shortly.');
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    // ── Sticky Nav ──
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    // ── Mobile Menu ──
+    document.getElementById('mobileToggle').addEventListener('click', () => {
+      document.getElementById('navLinks').classList.toggle('open');
+    });
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
+    });
+
+    // ── Floating Coffee Beans ──
+    (function createBeans() {
+      const container = document.getElementById('floatingBeans');
+      const beans = ['\u2615', '\u2726', '\u2728'];
+      for (let i = 0; i < 15; i++) {
+        const bean = document.createElement('div');
+        bean.className = 'bean';
+        bean.textContent = beans[i % beans.length];
+        bean.style.left = Math.random() * 100 + '%';
+        bean.style.fontSize = (1 + Math.random() * 1.5) + 'rem';
+        bean.style.animationDuration = (8 + Math.random() * 12) + 's';
+        bean.style.animationDelay = (Math.random() * 10) + 's';
+        container.appendChild(bean);
+      }
+    })();
+
+    // ── Steam Wisps ──
+    (function createSteam() {
+      const container = document.getElementById('steamContainer');
+      for (let i = 0; i < 6; i++) {
+        const steam = document.createElement('div');
+        steam.className = 'steam';
+        steam.style.left = (-15 + Math.random() * 30) + 'px';
+        steam.style.height = (40 + Math.random() * 30) + 'px';
+        steam.style.animationDuration = (3 + Math.random() * 3) + 's';
+        steam.style.animationDelay = (Math.random() * 3) + 's';
+        container.appendChild(steam);
+      }
+    })();
+
+    // ── Sparkle Canvas ──
+    (function sparkles() {
+      const canvas = document.getElementById('sparkle-canvas');
+      const ctx = canvas.getContext('2d');
+      let particles = [];
+
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      function Particle() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 0.5;
+        this.speedY = -0.2 - Math.random() * 0.3;
+        this.speedX = (Math.random() - 0.5) * 0.3;
+        this.opacity = Math.random() * 0.3;
+        this.maxOpacity = 0.15 + Math.random() * 0.2;
+        this.growing = true;
+      }
+
+      for (let i = 0; i < 40; i++) particles.push(new Particle());
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach((p, i) => {
+          p.x += p.speedX;
+          p.y += p.speedY;
+
+          if (p.growing) {
+            p.opacity += 0.003;
+            if (p.opacity >= p.maxOpacity) p.growing = false;
+          } else {
+            p.opacity -= 0.003;
+            if (p.opacity <= 0) particles[i] = new Particle();
+          }
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(240, 199, 94, ${p.opacity})`;
+          ctx.fill();
+        });
+        requestAnimationFrame(animate);
+      }
+      animate();
+    })();
+
+    // ── Scroll Reveal ──
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 360" fill="none">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&amp;display=swap');
+      .main-text { font-family: 'Playfair Display', Georgia, serif; font-weight: 900; }
+      .sub-text { font-family: 'Playfair Display', Georgia, serif; font-weight: 700; letter-spacing: 0.15em; }
+    </style>
+    <!-- curved text paths -->
+    <path id="topArc" d="M 100,155 Q 200,80 300,155" />
+    <path id="bottomArc" d="M 80,260 Q 200,330 320,260" />
+  </defs>
+
+  <!-- Decorative tin tie clips -->
+  <!-- Top left clip -->
+  <g transform="translate(108, 140) rotate(-35)">
+    <rect x="-3" y="-18" width="6" height="36" rx="1.5" fill="currentColor"/>
+    <rect x="-8" y="-20" width="16" height="6" rx="1" fill="currentColor"/>
+    <rect x="-6" y="12" width="12" height="5" rx="1" fill="currentColor"/>
+  </g>
+  <!-- Top right clip -->
+  <g transform="translate(292, 140) rotate(35)">
+    <rect x="-3" y="-18" width="6" height="36" rx="1.5" fill="currentColor"/>
+    <rect x="-8" y="-20" width="16" height="6" rx="1" fill="currentColor"/>
+    <rect x="-6" y="12" width="12" height="5" rx="1" fill="currentColor"/>
+  </g>
+  <!-- Bottom left clip -->
+  <g transform="translate(118, 240) rotate(35)">
+    <rect x="-3" y="-18" width="6" height="36" rx="1.5" fill="currentColor"/>
+    <rect x="-8" y="-20" width="16" height="6" rx="1" fill="currentColor"/>
+    <rect x="-6" y="12" width="12" height="5" rx="1" fill="currentColor"/>
+  </g>
+  <!-- Bottom right clip -->
+  <g transform="translate(282, 240) rotate(-35)">
+    <rect x="-3" y="-18" width="6" height="36" rx="1.5" fill="currentColor"/>
+    <rect x="-8" y="-20" width="16" height="6" rx="1" fill="currentColor"/>
+    <rect x="-6" y="12" width="12" height="5" rx="1" fill="currentColor"/>
+  </g>
+
+  <!-- "COFFEE" curved along top -->
+  <text fill="currentColor" class="sub-text" font-size="26">
+    <textPath href="#topArc" startOffset="50%" text-anchor="middle">COFFEE</textPath>
+  </text>
+
+  <!-- "TIN" and "TIE" main text -->
+  <text x="200" y="210" text-anchor="middle" fill="currentColor" class="main-text" font-size="82">TIN</text>
+  <text x="200" y="210" text-anchor="middle" fill="currentColor" class="main-text" font-size="82" dx="0" dy="2">
+    <tspan visibility="hidden">TIN</tspan>
+  </text>
+
+  <!-- Decorative dash between words -->
+  <line x1="170" y1="222" x2="230" y2="222" stroke="currentColor" stroke-width="3"/>
+
+  <text x="200" y="260" text-anchor="middle" fill="currentColor" class="main-text" font-size="82">TIE</text>
+
+  <!-- "ROASTERS" curved along bottom -->
+  <text fill="currentColor" class="sub-text" font-size="24">
+    <textPath href="#bottomArc" startOffset="50%" text-anchor="middle">ROASTERS</textPath>
+  </text>
+</svg>
