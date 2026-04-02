@@ -780,49 +780,27 @@
     <div class="section-inner">
       <div class="section-label">The Coffee</div>
       <h2 class="section-title">What's brewing</h2>
-      <p class="section-subtitle">Two roasts. No filler. Just honest, fresh-roasted magic in a bag.</p>
+      <p class="section-subtitle">Small batch. No filler. Just honest, fresh-roasted magic in a bag.</p>
 
       <div class="product-grid">
         <!-- Product 1 -->
         <div class="product-card reveal">
           <div class="product-image">
             <span class="bag-icon">&#9749;</span>
-            <div class="product-tag">Popular</div>
+            <div class="product-tag">New</div>
           </div>
           <div class="product-info">
-            <h3>Morning Kickstart</h3>
+            <h3>Fruity Pebbles</h3>
             <div class="product-meta">Medium Roast &#x2022; 12 oz bag &#x2022; Whole Bean</div>
-            <p class="product-description">A smooth, balanced medium roast that's perfect for your everyday cup. Bright enough to wake you up, smooth enough to keep you coming back for more.</p>
+            <p class="product-description">A bright, balanced blend of Ethiopian and Colombian beans. Fruity and complex with a smooth, clean finish — like your favorite childhood cereal, but make it coffee.</p>
             <div class="tasting-notes">
-              <span class="tasting-note">Chocolate</span>
+              <span class="tasting-note">Tropical Fruit</span>
+              <span class="tasting-note">Citrus</span>
               <span class="tasting-note">Brown Sugar</span>
-              <span class="tasting-note">Toasted Almond</span>
             </div>
             <div class="product-footer">
               <div class="product-price">$15 <small>/ bag</small></div>
-              <button class="buy-btn" onclick="handleCheckout('morning-kickstart')">Buy Now</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Product 2 -->
-        <div class="product-card reveal">
-          <div class="product-image">
-            <span class="bag-icon">&#9749;</span>
-            <div class="product-tag">Bold</div>
-          </div>
-          <div class="product-info">
-            <h3>Night Owl</h3>
-            <div class="product-meta">Dark Roast &#x2022; 12 oz bag &#x2022; Whole Bean</div>
-            <p class="product-description">A rich, full-bodied dark roast for anyone who likes their coffee with some serious muscle. Bold flavor, low bitterness, and a velvety smooth finish.</p>
-            <div class="tasting-notes">
-              <span class="tasting-note">Dark Chocolate</span>
-              <span class="tasting-note">Smoky Caramel</span>
-              <span class="tasting-note">Molasses</span>
-            </div>
-            <div class="product-footer">
-              <div class="product-price">$15 <small>/ bag</small></div>
-              <button class="buy-btn" onclick="handleCheckout('night-owl')">Buy Now</button>
+              <button class="buy-btn" onclick="handleCheckout('fruity-pebbles')">Buy Now</button>
             </div>
           </div>
         </div>
@@ -907,13 +885,8 @@
     const STRIPE_PUBLISHABLE_KEY = 'pk_test_REPLACE_WITH_YOUR_KEY';
 
     const PRODUCTS = {
-      'morning-kickstart': {
-        name: 'Morning Kickstart — Medium Roast',
-        paymentLink: 'https://buy.stripe.com/3cIdRacVp27wf0g5WE7Vm00',
-        priceId: 'price_REPLACE_WITH_YOUR_PRICE_ID',
-      },
-      'night-owl': {
-        name: 'Night Owl — Dark Roast',
+      'fruity-pebbles': {
+        name: 'Fruity Pebbles — Ethiopian &amp; Colombian Blend',
         paymentLink: 'https://buy.stripe.com/3cIdRacVp27wf0g5WE7Vm00',
         priceId: 'price_REPLACE_WITH_YOUR_PRICE_ID',
       }
