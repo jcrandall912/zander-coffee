@@ -797,7 +797,7 @@
         <div class="product-card reveal">
           <div class="product-image">
             <img src="fruity-pebbles.jpg" alt="Fruity Pebbles — Tin Tie Coffee Roasters" class="product-photo">
-            <div class="product-tag">New</div>
+            <div class="product-tag">Best Seller</div>
           </div>
           <div class="product-info">
             <h3>Fruity Pebbles</h3>
@@ -811,6 +811,28 @@
             <div class="product-footer">
               <div class="product-price">$15 <small>/ bag</small></div>
               <button class="buy-btn" onclick="handleCheckout('fruity-pebbles')">Buy Now</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product-card reveal">
+          <div class="product-image">
+            <img src="fruity-pebbles.jpg" alt="Snap, Crackle, Pop — Tin Tie Coffee Roasters" class="product-photo">
+            <div class="product-tag">New</div>
+          </div>
+          <div class="product-info">
+            <h3>Snap, Crackle, Pop</h3>
+            <div class="product-meta">Medium Roast &#x2022; 12 oz bag &#x2022; Whole Bean</div>
+            <p class="product-description">A lively blend of Brazilian, Mexican, and Colombian beans with a smooth body and bright, balanced character. Crisp, cozy, and made to keep the morning interesting.</p>
+            <div class="tasting-notes">
+              <span class="tasting-note">Milk Chocolate</span>
+              <span class="tasting-note">Citrus Zest</span>
+              <span class="tasting-note">Roasted Nut</span>
+            </div>
+            <div class="product-footer">
+              <div class="product-price">$15 <small>/ bag</small></div>
+              <button class="buy-btn" onclick="handleCheckout('snap-crackle-pop')">Buy Now</button>
             </div>
           </div>
         </div>
@@ -897,6 +919,11 @@
     const PRODUCTS = {
       'fruity-pebbles': {
         name: 'Fruity Pebbles — Ethiopian &amp; Colombian Blend',
+        paymentLink: 'https://buy.stripe.com/3cIdRacVp27wf0g5WE7Vm00',
+        priceId: 'price_REPLACE_WITH_YOUR_PRICE_ID',
+      },
+      'snap-crackle-pop': {
+        name: 'Snap, Crackle, Pop — Brazilian, Mexican &amp; Colombian Blend',
         paymentLink: 'https://buy.stripe.com/3cIdRacVp27wf0g5WE7Vm00',
         priceId: 'price_REPLACE_WITH_YOUR_PRICE_ID',
       }
